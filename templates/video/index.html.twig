@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Video index{% endblock %}
+
+{% block body %}
+{% include 'layouts/partials/_search_data.html.twig' with {
+           form: form           
+		} only  %}
+          {% if search  is not empty %}
+          <p>{{ pagination.getTotalItemCount }} vidéo(s) trouvé avec le terme "{{search}}"</p>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-10 mx-auto text-center  border border-dashed">
+            {# <h1>Video Index</h1> #}
+<br>
+<br>
+            <div class="container text-center">
+                <div class="row">
+                    {% for video in pagination %}
+                        <article class="col-12 col-sm-6 col-md-4 color">
+
+                            <h3>
+                                <a href="{{ path('app_video_show', {'id': video.id}) }}">{{ video.title|u.truncate(20,'...',false) }}</a>
+                            </h3>
+
+                            <iframe width="300" height="200" src="{{ video.videoLink }}"></iframe>
+
+                            <p>{{ video.description|u.truncate(25,'...',false) }}</p>
+                            <p>Soumis à {{ video.createdAt ? video.createdAt|ago }}</p>
+                            <p>Publié par {{ video.user.firstname ~ " " ~ video.user.lastname }}</p>
+
+                            {% if app.user %}
+                                {% if app.user.firstname is same as (video.user.firstname) %}
+                                    {% if video.premiumVideo %}
+                                        <div class="premium-icon">
+                                            &#9733; <!-- Unicode star character -->
+                                            
+                                        </div>
+                                        
+                                    {% endif %}
+                                    <a href="{{ path('app_video_show', {'id': video.id}) }}" class="btn btn-primary">Détails</a>
+                                    <a href="{{ path('app_video_edit', {'id': video.id}) }}" class="btn btn-primary">Editer</a>
+                                {% endif %}
+                            {% endif %}
+
+                        </article>
+                    {% else %}
+                        <p colspan="5">Aucun enregistrement trouvé</p>
+                    {% endfor %}
+
+				</div>
+
+            </div>
+<br>
+<br>
+        </div>
+						<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center ">
+					{{ knp_pagination_render(pagination)}}
+                </nav>
+				</ul>
+    </div>
+
+    {# <a href="{{ path('app_video_create') }}">Create new</a> #}
+{% endblock %}

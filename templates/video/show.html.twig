@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vidéo
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-6 mx-auto color">
+			{# <h1>Vidéo</h1> #}
+
+			{% if video.premiumVideo %}
+				<div class="premium-icon">
+					&#9733;
+					<!-- Unicode star character -->
+				</div>
+			{% endif %}
+
+			<h1>{{ video.title }}</h1>
+			<iframe width="640" height="480" src="{{ video.videoLink }}"></iframe>
+			<p>Description :</p>
+			<p>{{ video.description }}</p>
+			<p>Date de publication:</p>
+			<p>{{ video.createdAt ? video.createdAt|date('d-m-Y ') : '' }}</p>
+
+		{# <tr>
+									                <th>UpdatedAt</th>
+									                <td>{{ video.updatedAt ? video.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+									            </tr> #}
+
+		<p>
+			<a href="{{ path('app_home') }}" class="btn btn-primary ">Retour à la liste</a>
+		</p>
+		{% if app.user %}
+			{% if app.user.firstname is same as (video.user.firstname) %}
+				<p>
+					<a href="{{ path('app_video_edit', {'id': video.id}) }}" class="btn btn-primary ">Editer</a>
+				</p>
+				{{ include('video/_delete_form.html.twig') }}
+
+			{% endif %}
+		{% endif %}
+	</div>
+</div>{% endblock %}
