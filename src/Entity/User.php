@@ -46,10 +46,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:"Le nom ne peut pas être vide")]
     #[Assert\Length(min:2 ,minMessage: "Votre nom doit comporter au moins 2 caracteres")]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:"Le prenom  ne peut pas être vide")]
     #[Assert\Length(min:2 ,minMessage: "Votre prenom doit comporter au moins 2 caracteres")]
     private ?string $lastname = null;
 
@@ -64,7 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
-    private ?string $imageName = "default.jpeg";
+    private ?string $imageName = "default.jpg";
 
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;

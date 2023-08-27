@@ -19,6 +19,7 @@ class AccountController extends AbstractController
     }
     
         return $this->render('account/show.html.twig');
+        
     }
     #[Route('/account/edit', name: 'app_account_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, EntityManagerInterface $em): Response

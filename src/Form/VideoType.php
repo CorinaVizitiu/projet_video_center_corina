@@ -13,12 +13,13 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('videoLink')
+            ->add('title', null  , ['label' => 'Titre'])
+            ->add('videoLink', null  , ['label' => 'Lien vidéo'])
             ->add('description')
-            ->add('PremiumVideo', CheckboxType::class, [
-                'label' => 'Premium Video',
-                'required' => false, // It's not required, as it's a boolean field
+            ->add('premiumVideo', CheckboxType::class, [
+                'label' => 'Vidéo Reservé aux Membres  <span class="premium-star">&#9733;</span>',
+                'label_html'=>true,
+                'required' => false,
             ]);
        
         ;

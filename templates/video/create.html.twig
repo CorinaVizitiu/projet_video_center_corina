@@ -3,16 +3,18 @@
 {% block title %}Nouvelle Vidéo{% endblock %}
 
 {% block body %}
+<br>
+<br>
 <div class="row">
-<div class="col-md-6 mx-auto">
-    <h1>Créer une nouvelle vidéo</h1>
+<div class=" card shadow-sm col-md-6 mx-auto " style="background-color:#c3bef0">
+    <h1>Ajout d'une vidéo</h1>
   
     <p>
     {{ include('video/_form.html.twig') }}
     
 </p>
 <p>
-    <a href="{{ path('app_home') }}" class="btn btn-primary">Retour à la liste</a></p>
+    <a href="{{ path('app_home') }}" class="btn btn-primary">Retour</a></p>
 </div>
 </div>
 

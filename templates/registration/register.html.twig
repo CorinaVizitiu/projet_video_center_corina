@@ -6,8 +6,10 @@
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
+    <br>
+    <br>
 <div class="row">
-<div class="col-md-6 mx-auto">
+<div class="  card shadow-sm col-md-6 mx-auto" style="background-color:#c3bef0">
     <h1>Enregistrer</h1>
 
     {{ form_errors(registrationForm) }}

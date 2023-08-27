@@ -3,8 +3,10 @@
 {% block title %}Connexion!{% endblock %}
 
 {% block body %}
+<br>
+<br>
 <div class="row">
-<div class="col-md-6 mx-auto">
+<div class=" card shadow-sm col-md-6 mx-auto" style="background-color:#c3bef0">
 <form method="post">
     {% if error %}
         <div class="alert alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -34,7 +36,7 @@
        S'identifier
     </button>
         <div align="center" class="md-3"> Pas encore enregistré ?
-       <a href="#">  Crée un compte </a>
+       <a href="#{{ path('app_register') }}">  Crée un compte </a>
 </div>
 </form>
 </div>

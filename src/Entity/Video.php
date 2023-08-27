@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 #[ORM\Table(name: "videos")]
 #[ORM\HasLifecycleCallbacks]
@@ -32,7 +33,7 @@ class Video
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "Veuillez entrer une description")]
     #[Assert\Regex(pattern: "/\bwesh\b/i", match:false , message:"Vous ne pouvez pas introduire le mot grossier w***")]
-    #[Assert\Length(min:20 , minMessage: "Vous devez avoir une description de minimum 10 caractères")]
+    #[Assert\Length(min:10 , minMessage: "Vous devez avoir une description de minimum 10 caractères")]
     private ?string $description = null;
 
    
@@ -104,7 +105,7 @@ class Video
         return $this->premiumVideo;
     }
 
-    public function setPremiumVideo(bool $premiumVideo): static
+    public function setPremiumVideo(?bool $premiumVideo): static
     {
         $this->premiumVideo = $premiumVideo;
 

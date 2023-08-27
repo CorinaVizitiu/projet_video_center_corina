@@ -40,10 +40,11 @@ class VideoController extends AbstractController
     $searchData->page = $request->query->getInt('page', 1);
     // $video= $videoRepository->findBySearch($searchData);
     //    dd($video);
+ 
     $pagination = $paginator->paginate(
         $videoRepository->findbySearch($searchData),
         $request->query->get('page', 1),
-         6 
+         9 
     );
     $search = true;
 
@@ -51,7 +52,7 @@ class VideoController extends AbstractController
         'form' => $form,
         'pagination' => $pagination,
         'search' => $search,
-        'searchData' => $searchData->query, 
+        'searchTerm' => $searchData->query, 
        
         'videos' => $videoRepository->findBySearch($searchData)
     ]);
@@ -75,7 +76,7 @@ class VideoController extends AbstractController
             $this->addFlash('error', 'Vous devez vous connecter pour créer une vidéo!');
             return $this->redirectToRoute('app_login');
         }
-        // $premiumVideo = false ; 
+         
         $video = new Video();
         $form = $this->createForm(VideoType::class, $video);
         $form->handleRequest($request);
@@ -89,18 +90,19 @@ class VideoController extends AbstractController
             $this->addFlash('success', 'Vous  avez créé avec succès une nouvelle vidéo !');
             return $this->redirectToRoute('app_home');
         }
-        // $premiumVideo = true;
+        
         return $this->renderForm('video/create.html.twig', [
             'video' => $video,
             'form' => $form,
-            // 'premiumVideo' => $premiumVideo
+            
         ]);
     }
 
     #[Route('/video/{id}', name: 'app_video_show', methods: ['GET'])]
     public function show(Video $video): Response
     {        if ($video->isPremiumVideo() && (!$this->getUser() || !$this->getUser()->isVerified())) {
-        throw $this->createAccessDeniedException("Vous n'êtes pas autorisé à visionner cette vidéo premium.");
+         $this->addFlash("error","Vous n'êtes pas autorisé à visionner cette vidéo premium.");
+        return $this->redirectToRoute('app_login');
     }
         return $this->render('video/show.html.twig', [
             'video' => $video,

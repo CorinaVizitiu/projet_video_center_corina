@@ -13,8 +13,8 @@ class UserFormType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('firstname')
-            ->add('lastname')
+            ->add('firstname', null  , ['label' => 'Prénom'])
+            ->add('lastname', null  , ['label' => 'Nom'])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
